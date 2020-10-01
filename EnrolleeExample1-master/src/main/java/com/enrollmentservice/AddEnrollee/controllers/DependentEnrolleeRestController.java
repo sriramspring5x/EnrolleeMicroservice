@@ -5,6 +5,7 @@ import com.enrollmentservice.AddEnrollee.services.DependentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class DependentEnrolleeRestController {
 		this.dependentService = dependentService;
 	}
 
-	@PostMapping("/api/dependent/modify")
+	@PutMapping("/api/dependent/modify")
 	public boolean modifyEnrollee(long id, String name, String birth_Day)
 	{
 		try {
