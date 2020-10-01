@@ -47,30 +47,19 @@ public class EnrolleeServiceImpl implements EnrolleeService {
         try
         {
             Optional<Enrollee> record = enrolleeRepository.findById(enrollee.getId());
-            Enrollee newRecord = new Enrollee();
-            newRecord.setId(enrollee.getId());
 
             if(enrollee.getBirth_Day()!= null)
-                newRecord.setBirth_Day(enrollee.getBirth_Day());
-            else
-                record.ifPresentOrElse( value -> newRecord.setBirth_Day(value.getBirth_Day()), () -> System.out.println("Not found"));
+                record.get().setBirth_Day(enrollee.getBirth_Day());
 
             if(enrollee.getName() != null)
-                newRecord.setName(enrollee.getName());
-            else
-                record.ifPresentOrElse( value -> newRecord.setName(value.getName()), () -> System.out.println("Not found"));
+                record.get().setName(enrollee.getName());
 
             if(enrollee.getPhone_Number() != null)
-                newRecord.setPhone_Number(enrollee.getPhone_Number());
-            else
-                record.ifPresentOrElse( value -> newRecord.setPhone_Number(value.getPhone_Number()), () -> System.out.println("Not found"));
+                record.get().setPhone_Number(enrollee.getPhone_Number());
 
-            newRecord.setDependentEnrolleeList(record.get().getDependentEnrolleeList());
+            record.get().setActivation_Status(enrollee.getActivation_Status());
 
-            newRecord.setActivation_Status(enrollee.getActivation_Status());
-
-            enrolleeRepository.deleteById(enrollee.getId());
-            enrolleeRepository.save(newRecord);
+            enrolleeRepository.save(record.get());
             return true;
         }catch (Exception e)
         {
