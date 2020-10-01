@@ -3,10 +3,7 @@ package com.enrollmentservice.AddEnrollee.controllers;
 import com.enrollmentservice.AddEnrollee.models.DependentEnrollee;
 import com.enrollmentservice.AddEnrollee.services.EnrolleeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.enrollmentservice.AddEnrollee.models.Enrollee;
 
 import java.util.List;
@@ -35,14 +32,14 @@ public class EnrolleeRestController {
 		return enrolleeService.getEnrollees();
 	}
 
-	@PostMapping("/api/enrollee/modify")
+	@PutMapping("/api/enrollee/modify")
 	public void modifyEnrollee(long id, String name, boolean activation_Status, String birth_Day, String phone_Number)
 	{
 		Enrollee enrollee = new Enrollee(id, name, activation_Status, birth_Day, phone_Number);
 		enrolleeService.modifyEnrollee(enrollee);
 	}
 
-	@PostMapping("/api/enrollee/remove")
+	@DeleteMapping("/api/enrollee/remove")
 	public void removeEnrollee(long id)
 	{
 		enrolleeService.removeEnrollee(id);
@@ -54,7 +51,7 @@ public class EnrolleeRestController {
 		enrolleeService.addDependent(enrollee_ID, dependentEnrollee);
 	}
 
-	@PostMapping("/api/enrollee/dependent/remove")
+	@DeleteMapping("/api/enrollee/dependent/remove")
 	public void removeDependent(long enrollee_ID, long dependent_ID)
 	{
 		enrolleeService.removeDependent(enrollee_ID, dependent_ID);
